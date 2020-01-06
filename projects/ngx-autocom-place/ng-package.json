@@ -3,5 +3,8 @@
   "dest": "../../dist/ngx-autocom-place",
   "lib": {
     "entryFile": "src/public_api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "@types/googlemaps"
+  ]
 }

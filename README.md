@@ -1,4 +1,4 @@
-# ngxAutocomPlace : Google Places Autocomplete Directive
+# ngxAutocomPlace : GoogleMaps Places API Autocomplete Directive
 
 Add this directive to any input to activate the google places autocomplete feature.
 
@@ -11,7 +11,7 @@ Tested with :
 
 ## Install
 ```sh
-    npm i --save ngx-cache-if
+    npm i --save ngx-autocom-place
 ```
 import `NgxAutocomPlaceModule` in your app module.
 
@@ -25,4 +25,4 @@ import `NgxAutocomPlaceModule` in your app module.
 ```html
     <input type="text" ngxAutocomPlace (selectedPlace)="placeChangedCallback($event)"/>
 ```
-
+- attribute `[options]` (optional) can be added to pass (ref: https://developers.google.com/maps/documentation/javascript/reference/places-widget)
