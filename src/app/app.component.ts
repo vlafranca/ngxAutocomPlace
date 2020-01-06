@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'libraries';
+  title = 'ngx Autocomplete Google Places';
+  selectedPlace: any;
+  json = JSON;
+
+  constructor(private ref: ChangeDetectorRef) {}
+
+  placeChanged(place) {
+      this.selectedPlace = place;
+      this.ref.detectChanges();
+  }
 }

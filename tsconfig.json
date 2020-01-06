@@ -16,6 +16,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "NgxAutocomPlace": [
+        "dist/ngx-autocom-place"
+      ],
+      "NgxAutocomPlace/*": [
+        "dist/ngx-autocom-place/*"
+      ]
+    }
   }
 }

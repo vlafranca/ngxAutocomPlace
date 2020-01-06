@@ -121,6 +121,41 @@
           }
         }
       }
+    },
+    "NgxAutocomPlace": {
+      "root": "projects/ngx-autocom-place",
+      "sourceRoot": "projects/ngx-autocom-place/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-autocom-place/tsconfig.lib.json",
+            "project": "projects/ngx-autocom-place/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-autocom-place/src/test.ts",
+            "tsConfig": "projects/ngx-autocom-place/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-autocom-place/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-autocom-place/tsconfig.lib.json",
+              "projects/ngx-autocom-place/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "libraries"
