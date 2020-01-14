@@ -26,6 +26,8 @@ export class NgxAutocomPlaceDirective {
       inputElement = this.el.nativeElement
     } else if(this.el.nativeElement.tagName === 'ION-INPUT') {
       inputElement = await this.el.nativeElement.getInputElement()
+    } else if(this.el.nativeElement.tagName === 'ION-SEARCHBAR') {
+      inputElement = await this.el.nativeElement.getInputElement()
     } else {
       return;
     }
