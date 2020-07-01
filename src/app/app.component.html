@@ -7,7 +7,7 @@
 <h2>Lookup for a city or an address :</h2>
 <ul>
   <li>
-    <input type="text" ngxAutocomPlace (selectedPlace)="placeChanged($event)"/>
+    <input type="text" ngxAutocomPlace [options]="options" (selectedPlace)="placeChanged($event)"/>
   </li>
 </ul>
 <pre *ngIf="selectedPlace">

@@ -19,10 +19,10 @@
     ],
     "paths": {
       "NgxAutocomPlace": [
-        "dist/ngx-autocom-place"
+        "projects/ngx-autocom-place/src/public_api"
       ],
       "NgxAutocomPlace/*": [
-        "dist/ngx-autocom-place/*"
+        "projects/ngx-autocom-place/src/*"
       ]
     }
   }

@@ -1,20 +1,18 @@
-import { Directive, Output, EventEmitter, Input, ElementRef } from '@angular/core';
+import { Directive, Output, EventEmitter, Input, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[ngxAutocomPlace]'
 })
-export class NgxAutocomPlaceDirective {
+export class NgxAutocomPlaceDirective implements OnInit {
   points = [];
   @Output() selectedPlace: EventEmitter<
     google.maps.places.PlaceResult
   > = new EventEmitter();
   @Input() options: google.maps.places.AutocompleteOptions;
 
-  constructor(public el: ElementRef) {
-    this.process();
-  }
+  constructor(public el: ElementRef) {}
 
-  async process() {
+  async ngOnInit() {
     const options = this.options
       ? this.options
       : {

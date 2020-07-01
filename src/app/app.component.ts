@@ -9,6 +9,11 @@ export class AppComponent {
   title = 'ngx Autocomplete Google Places';
   selectedPlace: any;
   json = JSON;
+  options = {
+    componentRestrictions: {
+      country: 'fr'
+    }
+  }
 
   constructor(private ref: ChangeDetectorRef) {}
 
