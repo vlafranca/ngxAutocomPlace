@@ -1,4 +1,3 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
@@ -7,7 +6,7 @@
 <h2>Lookup for a city or an address :</h2>
 <ul>
   <li>
-    <input type="text" ngxAutocomPlace [options]="options" (selectedPlace)="placeChanged($event)"/>
+    <input type="text" ngxAutocomPlace [options]="options" placeholder="Type city or adress ..." (selectedPlace)="placeChanged($event)"/>
   </li>
 </ul>
 <pre *ngIf="selectedPlace">
