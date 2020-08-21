@@ -1,6 +1,7 @@
 # ngxAutocomPlace : GoogleMaps Places API Autocomplete Directive
 
-Add this directive to any input to activate the google places autocomplete feature.
+Add this directive to any input to activate the google places autocomplete feature.  
+It uses google place API programmatically instead of the ready to use autocomplete javascript widget provided by google. This allows to handle keydown.enter events to select the first result automatically, and access the predictions for further customisations.
 
 Tested with :	
 
@@ -26,3 +27,38 @@ import `NgxAutocomPlaceModule` in your app module.
     <input type="text" ngxAutocomPlace (selectedPlace)="placeChangedCallback($event)"/>
 ```
 - attribute `[options]` (optional) can be added to pass (ref: https://developers.google.com/maps/documentation/javascript/reference/places-widget)
+
+## Api
+### ngxAutocomPlace
+#### [options]
+Use to customise the autocomplete options. (optional)
+Default to :
+```
+{
+    types: ["geocode"]
+}
+```
+Format : https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest
+
+#### (selectedPlace)
+Emit selected place result.  
+Format : https://developers.google.com/maps/documentation/javascript/reference/places-service#PlaceResult
+
+#### (predictions)
+Emit predictions on user input. (optional)
+Format : https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletePrediction
+
+#### [handleEnterKeydown]
+Set handler for enter key press event by user with first result selection from google predictions dropdown. (optional)
+Default: True
+
+#### [hideResultDropdown]
+Set to true to not display the result dorpdown and handle predictions by your own. (optional)
+Default: False
+
+### NgxAutocomPlaceService
+#### getPredictions
+`getPlacePrediction` implementation : https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompleteService.getPlacePredictions
+
+#### getPlaceDetails
+`getDetails` implementation : https://developers.google.com/maps/documentation/javascript/reference/places-service#PlacesService.getDetails

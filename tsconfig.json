@@ -25,5 +25,8 @@
         "projects/ngx-autocom-place/src/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
   }
 }

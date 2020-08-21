@@ -1,4 +1,5 @@
 import { Directive, Output, EventEmitter, Input, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { NgxAutocomPlaceService } from './ngx-autocom-place.service';
 
 export interface AutocomplaceOptions extends google.maps.places.AutocompleteOptions {
   input?: string; // not used in our case handled by <input> element value
@@ -12,17 +13,19 @@ export class NgxAutocomPlaceDirective implements OnInit, OnDestroy {
   @Output() selectedPlace: EventEmitter<
     google.maps.places.PlaceResult
   > = new EventEmitter();
+  @Output() predictions: EventEmitter<google.maps.places.AutocompletePrediction[]> = new EventEmitter();
   @Input() options: AutocomplaceOptions = {
     types: ["geocode"] // 'establishment' / 'address' / 'geocode'
   };
-  autocompleteService = new google.maps.places.AutocompleteService();
-  placeService = new google.maps.places.PlacesService(document.createElement('div'));
+  @Input() handleEnterKeydown = true;
+  @Input() hideResultDropdown = false;
+
   results: google.maps.places.AutocompletePrediction[];
   resultPacContainer: HTMLElement;
-  downArrowIndex = 0;
+  downArrowIndex = -1;;
   inputElement: HTMLInputElement;
 
-  constructor(public el: ElementRef) { }
+  constructor(public el: ElementRef, public ngxAutocomplaceService: NgxAutocomPlaceService) { }
 
   async ngOnInit() {
     if (this.el.nativeElement instanceof HTMLInputElement) {
@@ -66,7 +69,7 @@ export class NgxAutocomPlaceDirective implements OnInit, OnDestroy {
       this.resultPacContainer.appendChild(this.createPacItem(element.place_id, element.structured_formatting.main_text, element.structured_formatting.secondary_text, element.structured_formatting.main_text_matched_substrings[0].length));
     });
 
-    document.querySelector('body').append(this.resultPacContainer);
+    document.querySelector('body').appendChild(this.resultPacContainer);
   }
 
   createPacItem(placeId: string, mainText: string, secondaryText: string, matchMainOffset: number) {
@@ -87,7 +90,7 @@ export class NgxAutocomPlaceDirective implements OnInit, OnDestroy {
     spanContentMatch.appendChild(document.createTextNode(mainText.substr(matchMainOffset)));
 
     const spanCity = document.createElement('span');
-    spanCity.append(secondaryText);
+    spanCity.appendChild(document.createTextNode(secondaryText));
 
     item.appendChild(spanIcon);
     item.appendChild(spanContentMatch);
@@ -100,12 +103,11 @@ export class NgxAutocomPlaceDirective implements OnInit, OnDestroy {
   }
 
   getPlaceDetails(placeId: string) {
-    this.placeService.getDetails({
-      placeId,
-    }, (result, status) => {
-      if (status !== 'OK') return;
+    this.ngxAutocomplaceService.getPlaceDetails(placeId).then((result) => {
+      // this.inputElement.value = result.formatted_address;
+      // this.inputElement.blur();
       this.selectedPlace.emit(result);
-    });
+    })
   }
 
   blurEvent() {
@@ -117,33 +119,33 @@ export class NgxAutocomPlaceDirective implements OnInit, OnDestroy {
   }
 
   inputEvent(_e) {
-    const request = {
-      input: this.inputElement.value,
-      ...this.options
-    };
-    this.autocompleteService.getPlacePredictions(request, (results, status) => {
-      if (status !== 'OK') return;
+    this.ngxAutocomplaceService.getPredictions(this.inputElement.value, this.options).then((results) => {
       if (results) {
         this.removePacItems();
-        this.results = results;
-        this.createPacContainer(this.inputElement, results);
+        if (!this.hideResultDropdown) {
+          this.results = results;
+          this.createPacContainer(this.inputElement, results);
+        }
+        this.predictions.emit(results);
       }
     })
   }
 
   keydownEvent(e) {
-    if (e.key === 'Enter' || e.keyCode === 13) {
-      if (this.results && this.results.length > 0) {
-        this.getPlaceDetails(this.results[this.downArrowIndex].place_id);
-        this.removePacItems();
+    if (this.handleEnterKeydown) {
+      if (e.key === 'Enter' || e.keyCode === 13) {
+        if (this.results && this.results.length > 0) {
+          this.getPlaceDetails(this.results[this.downArrowIndex > -1 ? this.downArrowIndex : 0].place_id);
+          this.removePacItems();
+        }
       }
     }
     if (e.keyCode === 40) {
+      this.downArrowIndex++;
       if (this.downArrowIndex > 0) {
         document.querySelectorAll('.pac-item')[this.downArrowIndex - 1].classList.remove('pac-item-selected');
       }
       document.querySelectorAll('.pac-item')[this.downArrowIndex].classList.add('pac-item-selected');
-      this.downArrowIndex++;
     }
   }
 
@@ -152,7 +154,7 @@ export class NgxAutocomPlaceDirective implements OnInit, OnDestroy {
       this.resultPacContainer.remove();
       this.resultPacContainer = null;
     }
-    this.downArrowIndex = 0;
+    this.downArrowIndex = -1;;
   }
 
   ngOnDestroy() {
