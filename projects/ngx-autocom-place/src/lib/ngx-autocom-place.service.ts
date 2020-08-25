@@ -15,11 +15,10 @@ export class NgxAutocomPlaceService {
     };
     return new Promise((resolve, reject) => {
       this.autocompleteService.getPlacePredictions(request, (results, status) => {
-        if (status !== google.maps.places.PlacesServiceStatus.OK) {
-          reject();
+        if (status !== google.maps.places.PlacesServiceStatus.OK && status !== google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+          reject(status);
           return;
-        }
-        if (results) {
+        } else {
           resolve(results);
         }
       })
@@ -32,7 +31,7 @@ export class NgxAutocomPlaceService {
         placeId,
       }, (result, status) => {
         if (status !== google.maps.places.PlacesServiceStatus.OK) {
-          reject();
+          reject(status);
           return;
         }
         resolve(result);

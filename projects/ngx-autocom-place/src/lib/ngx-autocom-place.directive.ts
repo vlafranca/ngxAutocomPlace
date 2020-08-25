@@ -121,8 +121,8 @@ export class NgxAutocomPlaceDirective implements OnInit, OnDestroy {
   inputEvent(_e) {
     if (this.inputElement && this.inputElement.value) {
       this.ngxAutocomplaceService.getPredictions(this.inputElement.value, this.options).then((results) => {
+        this.removePacItems();
         if (results) {
-          this.removePacItems();
           if (!this.hideResultDropdown) {
             this.results = results;
             this.createPacContainer(this.inputElement, results);

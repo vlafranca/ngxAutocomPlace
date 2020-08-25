@@ -1,6 +1,6 @@
 {
   "name": "ngx-autocom-place",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "GoogleMaps Places Api Autocomplete Directive",
   "keywords": [
     "Google",
@@ -11,12 +11,14 @@
     "angular6",
     "angular7",
     "angular8",
-    "Place",
+    "place",
+    "places",
     "autocomplete",
     "google place",
     "google maps",
     "google maps api",
-    "ionic"
+    "ionic",
+    "location"
   ],
   "author": "Valentin Lafranca",
   "license": "MIT",
