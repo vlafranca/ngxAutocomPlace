@@ -1,5 +1,9 @@
 import { Directive, Output, EventEmitter, Input, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { NgxAutocomPlaceService } from './ngx-autocom-place.service';
+import { fromEvent, Subscription } from 'rxjs';
+import {
+  debounceTime
+} from "rxjs/operators";
 
 export interface AutocomplaceOptions extends google.maps.places.AutocompleteOptions {
   input?: string; // not used in our case handled by <input> element value
@@ -19,11 +23,13 @@ export class NgxAutocomPlaceDirective implements OnInit, OnDestroy {
   };
   @Input() handleEnterKeydown = true;
   @Input() hideResultDropdown = false;
+  @Input() debounceTime = 150;
 
   results: google.maps.places.AutocompletePrediction[];
   resultPacContainer: HTMLElement;
   downArrowIndex = -1;;
   inputElement: HTMLInputElement;
+  inputSubscription: Subscription;
 
   constructor(public el: ElementRef, public ngxAutocomplaceService: NgxAutocomPlaceService) { }
 
@@ -47,7 +53,9 @@ export class NgxAutocomPlaceDirective implements OnInit, OnDestroy {
       this.blurEvent();
     });
 
-    this.inputElement.addEventListener('input', (_e) => {
+    this.inputSubscription = fromEvent(this.inputElement, 'input').pipe(
+      debounceTime(this.debounceTime)
+    ).subscribe((_e) => {
       this.inputEvent(_e);
     });
 
@@ -130,6 +138,8 @@ export class NgxAutocomPlaceDirective implements OnInit, OnDestroy {
           this.predictions.emit(results);
         }
       });
+    } else {
+      this.removePacItems();
     }
   }
 
@@ -164,9 +174,7 @@ export class NgxAutocomPlaceDirective implements OnInit, OnDestroy {
       this.blurEvent();
     });
 
-    this.inputElement.removeEventListener('input', (_e) => {
-      this.inputEvent(_e);
-    });
+    this.inputSubscription.unsubscribe();
 
     this.inputElement.removeEventListener('keydown', (e) => {
       this.keydownEvent(e);

@@ -1,4 +1,4 @@
-# ngxAutocomPlace : GoogleMaps Places API Autocomplete Directive
+# ngxAutocomPlace : Angular Google Places API Autocomplete Directive
 
 Add this directive to any input to activate the google places autocomplete feature.  
 It uses google place API programmatically instead of the ready to use autocomplete javascript widget provided by google. This allows to handle keydown.enter events to select the first result automatically, and access the predictions for further customisations.
@@ -55,6 +55,10 @@ Default: True
 #### [hideResultDropdown]
 Set to true to not display the result dorpdown and handle predictions by your own. (optional)
 Default: False
+
+#### [debounceTime]
+Time to delay each input event (rxjs debounceTime) (optional)
+Default: 150 (ms)
 
 ### NgxAutocomPlaceService
 #### getPredictions

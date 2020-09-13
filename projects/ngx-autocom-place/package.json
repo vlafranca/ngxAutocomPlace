@@ -1,7 +1,7 @@
 {
   "name": "ngx-autocom-place",
-  "version": "1.0.3",
-  "description": "GoogleMaps Places Api Autocomplete Directive",
+  "version": "1.0.4",
+  "description": "Angular GoogleMaps Places Api Autocomplete Directive",
   "keywords": [
     "Google",
     "angular2",
