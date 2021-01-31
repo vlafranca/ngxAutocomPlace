@@ -5,12 +5,17 @@ export class NgxAutocomPlaceService {
 
   autocompleteService = new google.maps.places.AutocompleteService();
   placeService = new google.maps.places.PlacesService(document.createElement('div'));
+  sessionToken: google.maps.places.AutocompleteSessionToken;
 
   constructor() { }
 
   getPredictions(value, options): Promise<google.maps.places.AutocompletePrediction[]> {
+    if(!this.sessionToken) {
+      this.sessionToken = new google.maps.places.AutocompleteSessionToken();
+    }
     const request = {
       input: value,
+      sessionToken: this.sessionToken,
       ...options
     };
     return new Promise((resolve, reject) => {
@@ -29,7 +34,9 @@ export class NgxAutocomPlaceService {
     return new Promise((resolve, reject) => {
       this.placeService.getDetails({
         placeId,
+        sessionToken: this.sessionToken,
       }, (result, status) => {
+        this.sessionToken = null;
         if (status !== google.maps.places.PlacesServiceStatus.OK) {
           reject(status);
           return;
