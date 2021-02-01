@@ -8,7 +8,7 @@ Tested with :
 | Framwork | Version |
 | -------- | -------- |
 | Angular  | 8 +   |
-| Ionic    | 4 |
+| Ionic    | 4 + |
 
 ## Install
 ```sh
