@@ -28,8 +28,8 @@
     "url": "https://github.com/vlafranca/ngxAutocomPlace.git"
   },
   "peerDependencies": {
-    "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0"
+    "@angular/common": "^9.0.0",
+    "@angular/core": "^9.0.0"
   },
   "dependencies": {
     "@types/googlemaps": "3.37.7"
