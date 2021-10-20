@@ -10,6 +10,11 @@ Tested with :
 | Angular  | 8 +   |
 | Ionic    | 4 |
 
+| Angular  | ngx-autocom-place |
+| -------- | -------- |
+| Angular 8  | 2.0.0 |
+| Angular 9  | 3.0.0 |
+
 ## Install
 ```sh
     npm i --save ngx-autocom-place
