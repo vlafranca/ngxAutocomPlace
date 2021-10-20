@@ -1,6 +1,6 @@
 {
   "name": "ngx-autocom-place",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Angular GoogleMaps Places Api Autocomplete Directive",
   "keywords": [
     "Google",
@@ -28,10 +28,11 @@
     "url": "https://github.com/vlafranca/ngxAutocomPlace.git"
   },
   "peerDependencies": {
-    "@angular/common": "^9.0.0",
-    "@angular/core": "^9.0.0"
+    "@angular/common": "^10.0.0",
+    "@angular/core": "^10.0.0"
   },
   "dependencies": {
-    "@types/googlemaps": "3.37.7"
+    "@types/googlemaps": "3.37.7",
+    "tslib": "^2.0.0"
   }
 }

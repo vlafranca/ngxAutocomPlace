@@ -14,6 +14,7 @@ Tested with :
 | -------- | -------- |
 | Angular 8  | 2.0.0 |
 | Angular 9  | 3.0.0 |
+| Angular 10  | 4.0.0 |
 
 ## Install
 ```sh
