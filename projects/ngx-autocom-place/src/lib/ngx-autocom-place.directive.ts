@@ -155,9 +155,9 @@ export class NgxAutocomPlaceDirective implements OnInit, OnDestroy {
     if (e.keyCode === 40) {
       this.downArrowIndex++;
       if (this.downArrowIndex > 0) {
-        document.querySelectorAll('.pac-item')[this.downArrowIndex - 1].classList.remove('pac-item-selected');
+        document.querySelectorAll('.pac-item')[this.downArrowIndex - 1]?.classList.remove('pac-item-selected');
       }
-      document.querySelectorAll('.pac-item')[this.downArrowIndex].classList.add('pac-item-selected');
+      document.querySelectorAll('.pac-item')[this.downArrowIndex]?.classList.add('pac-item-selected');
     }
   }
 
